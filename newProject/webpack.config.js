@@ -47,11 +47,14 @@ module.exports = {
 };
 /**
  *  webpack 5版本
- *      不支持使用插件  extract-text-webpack-plugin
- *      替换成         mini-css-extract-plugin
- * 
- *      不支持使用插件  webpack-dev-sever 
- *      替换成         webpack-serve
+ *      1
+ *          不支持使用插件  extract-text-webpack-plugin
+ *          替换成         mini-css-extract-plugin
+ *      2
+ *          package.json的scripts文件执行错误        webpack-dev-sever --config webpack.config.js
+ *          替换成                                  webpack serve  --config webpack.config.js
+ *      
+ *      
  * 
  * 
  * 
