@@ -82,12 +82,13 @@ module.exports = {
         */
         filename: 'bundle.js',
         /**
+         * 好像没有这个指令
          * 类型     Boolean
          * 默认     false
          * 启动watch模式，意味着在初始构建之后，webpack将继续监听任何已解析文件的更改
          * webpack-dev-server 和 webpack-dev-middleware 里 Watch 模式默认开启。
         */
-        watch: true,
+        // watch: true,
         /**
          * 类型     Object
          * 一组定制watch模式的选项 可理解为watch的配置项
@@ -110,8 +111,7 @@ module.exports = {
         watchOptions: {
             aggregateTimeout: 1,
             ignored: /node_modules/,
-            poll: 1,
-
+            poll: 1
         },
         open: true,
         /**
@@ -170,7 +170,21 @@ module.exports = {
          * 主机容易受到DNS重绑定攻击
          * ?????? 未理解 ?????? 
         */
-        disableHostCheck: true
+        disableHostCheck: true,
+        /**
+         * 类型     Object
+         * 在所有的响应头上添加首部内容
+        */
+        headers: {
+            "X-Custom-Foo": "bar"
+        },
+        /**
+         * 类型     Boolean|Object
+         * 
+        */
+        historyApiFallback: {
+            
+        }
         /**
          * 类型 Boolean
          * 在控制台 开启/禁用彩色输出
