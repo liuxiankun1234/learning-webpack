@@ -1,5 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     mode: 'development',
@@ -35,6 +36,13 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin({
             // filename: `[name]_[contenthash:8].css`
+        }),
+        new HtmlWebpackPlugin({
+            template: './html/login.html'
+        }),
+        
+        new HtmlWebpackPlugin({
+            template: './html/index.html'
         })
     ],
     devServer: {
@@ -43,10 +51,14 @@ module.exports = {
         // 一切服务都启用
         compress: true,
         port: 9000,
+        open: true,
+        hot: true,
+        // watch: true
     },
 };
 /**
  *  webpack 5版本
+ *  遇到问题
  *      1
  *          不支持使用插件  extract-text-webpack-plugin
  *          替换成         mini-css-extract-plugin
@@ -54,7 +66,9 @@ module.exports = {
  *          package.json的scripts文件执行错误        webpack-dev-sever --config webpack.config.js
  *          替换成                                  webpack serve  --config webpack.config.js
  *      
- *      
+ *      3
+ *          webpack不会自动打包成HTML文件
+ *          需要引入插件 HtmlWebpackPlugin
  * 
  * 
  * 
