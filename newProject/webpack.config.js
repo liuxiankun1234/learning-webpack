@@ -3,6 +3,24 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
+    /**
+     *  提供mode配置选项，告知webpack使用相应模式的内置优化
+     *  类型     String
+     *  使用     命令行和配置文件 webpack --mode=production or {mode: 'production'}
+     *  选项     development
+     *              会将process.env.NODE_ENV的值设置为development。
+     *              启用 NamedChunksPlugin
+     *                  NamedModulesPlugin // 当开启 HMR 的时候使用该插件会显示模块的相对路径，建议用于开发环境。
+     *         production
+     *              会将process.env.NODE_ENV的值设置为production。
+     *              启用 FlagDependencyUsagePlugin
+     *                  FlagIncludedChunksPlugin
+     *                  ModuleConcatenationPlugin
+     *                  NoEmitOnErrorsPlugin
+     *                  OccurrenceOrderPlugin
+     *                  SideEffectsFlagPlugin
+     *                  UglifyJsPlugin
+    */
     mode: 'development',
     // JavaScript 执行入口文件
     entry: './js/index.js',
@@ -26,10 +44,21 @@ module.exports = {
                 /**
                  *  use属性
                  *      值需要是一个由Loader名称组成的数组，Loader的执行顺序是由后到前的
-                 *      每一个Loader都可以通过URL querystring的方式传入参数
+                 *      Loader都可以通过URL querystring的方式传入参数
                  *          css-loader?minimize 告诉css-loader需要开启css压缩
+                 *      Loader也可以通过Obejct传入
+                 *          
                 **/ 
-                use: [MiniCssExtractPlugin.loader, 'css-loader'],
+                // use: [MiniCssExtractPlugin.loader, 'css-loader?minimize'],
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            // minimize: true
+                        }
+                    }
+                ]
             }
         ]
     },
@@ -37,10 +66,9 @@ module.exports = {
         new MiniCssExtractPlugin({
             // filename: `[name]_[contenthash:8].css`
         }),
-        new HtmlWebpackPlugin({
-            template: './html/login.html'
-        }),
-        
+        // new HtmlWebpackPlugin({
+        //     template: './html/login.html'
+        // }),
         new HtmlWebpackPlugin({
             template: './html/index.html'
         })
@@ -176,7 +204,8 @@ module.exports = {
          * 在所有的响应头上添加首部内容
         */
         headers: {
-            "X-Custom-Foo": "bar"
+            "X-Custom-Foo": "bar",
+            "Last-Modified": '1'
         },
         /**
          * 类型     Boolean|Object
